@@ -1,0 +1,71 @@
+<html>
+
+<head>
+  <script src="./vu-meter.js"></script>
+  <link rel="stylesheet" href="./vu-meter.css">
+  <script>
+    const vu = new VUMeter({
+      gradientStart: '#75b831',
+      gradientMiddle: '#f2921b',
+      gradientEnd: '#c11e0f',
+      barSpeed: 2,
+      tickerSpeed: 4,
+      tickerHeight: 2,
+      tickerColor: 'black',
+      refreshRate: 60,
+    });
+    vu.start();
+
+    setInterval(() => {
+      vu.volumes = vu.volumes.map(() => Math.random());
+    }, 100);
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: inline-flex;
+    }
+
+    .vu-scale {
+      height: 160px;
+      font-size: 8px;
+      margin-right: 3px;
+    }
+
+    .vu-bar-container {
+      width: 13px;
+      height: 160px;
+      background-color: lightgray;
+      border-radius: 2px;
+    }
+
+    .vu-bar-container+.vu-bar-container {
+      margin-left: 1px;
+    }
+
+    .vu-bar {
+      border-radius: 2px;
+    }
+
+    .vu-scale-marker {
+      left: 12%;
+      width: 80%;
+      border-color: gray;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="vu-scale"></div>
+    <div class="vu-bar-container"></div>
+    <div class="vu-bar-container"></div>
+    <div class="vu-bar-container"></div>
+    <div class="vu-bar-container"></div>
+  </div>
+</body>
+
+</html>
