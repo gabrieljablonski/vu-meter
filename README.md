@@ -25,6 +25,11 @@
       vu.volumes = vu.volumes.map(() => Math.random());
     }, 100);
   </script>
+  <style>
+    .container {
+      display: inline-flex;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
