@@ -2,6 +2,8 @@
 
 ## How to use
 
+[`vu-example.html`](./vu-example.html) has a more complete example of how to modify other stylings (background color, height, ...).
+
 ```html
 <html>
 <head>
