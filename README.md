@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./vu-meter.css">
   <script>
     const vu = new VUMeter({
+      id: 'vu-1',
       gradientStart: '#75b831',
       gradientMiddle: '#f2921b',
       gradientEnd: '#c11e0f',
@@ -34,7 +35,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div id="vu-1" class="container">
     <div class="vu-scale"></div>
     <div class="vu-bar-container"></div>
     <div class="vu-bar-container"></div>

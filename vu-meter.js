@@ -10,6 +10,10 @@ class VUMeter {
   static BAR = 'vu-bar';
 
   constructor(options) {
+    if (!options.id) {
+      throw new Error('Missing vu meter id');
+    }
+    this.id = options.id;
     this.gradientStart = options.gradientStart || '#75b831';
     this.gradientMiddle = options.gradientMiddle || '#f2921b';
     this.gradientEnd = options.gradientEnd || '#c11e0f';
@@ -87,7 +91,7 @@ class VUMeter {
   }
 
   _renderScales() {
-    const scales = Array.from(document.getElementsByClassName(VUMeter.SCALE));
+    const scales = document.getElementById(this.id).querySelectorAll(`.${VUMeter.SCALE}`);
     const labels = [
       '0 dB',
       '-10 dB',
@@ -118,9 +122,9 @@ class VUMeter {
     const canvas = document.createElement('canvas');
     canvas.className = VUMeter.BAR;
 
-    const containers = Array.from(document.getElementsByClassName(VUMeter.BAR_CONTAINER));
+    const containers = document.getElementById(this.id).querySelectorAll(`.${VUMeter.BAR_CONTAINER}`);
     containers.forEach((container, i) => {
-      const id = `${VUMeter.BAR}-${i+1}`;
+      const id = `${VUMeter.BAR}-${this.id}-${i+1}`;
       this.barIds.push(id);
       container.removeAttribute('id');
       canvas.setAttribute('id', id);
