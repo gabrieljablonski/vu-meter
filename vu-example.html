@@ -2,6 +2,7 @@
 
 <head>
   <script src="./vu-meter.js"></script>
+  <script src="./jsmpeg-player.umd.min.js"></script>
   <link rel="stylesheet" href="./vu-meter.css">
   <script>
     const vu = new VUMeter({
@@ -16,14 +17,17 @@
       refreshRate: 60,
     });
     vu.start();
-
-    const p = new JSMpeg.VideoElement(
-      '#placeholder-preview',
-      'http://localhost:8082/preview',
-    );
-    setInterval(() => {
-      vu.volumes = p.player.vu.volumes;
-    }, 100);
+    setTimeout(() => {
+      const p = new JSMpeg.VideoElement(
+        '#placeholder-preview',
+        'ws://192.168.7.161:8082/melted.2',
+      );
+      setInterval(() => {
+        p.player.vu.channels.forEach((v, i) => {
+          vu.volumes[i] = v / 255;
+        })
+      }, 100);
+    });
   </script>
   <style>
     .container {
@@ -55,6 +59,12 @@
       left: 12%;
       width: 80%;
       border-color: gray;
+    }
+
+    #placeholder-preview {
+      display: inline-flex;
+      width: 480px;
+      height: 270px;
     }
   </style>
 </head>
