@@ -17,8 +17,12 @@
     });
     vu.start();
 
+    const p = new JSMpeg.VideoElement(
+      '#placeholder-preview',
+      'http://localhost:8082/preview',
+    );
     setInterval(() => {
-      vu.volumes = vu.volumes.map(() => Math.random());
+      vu.volumes = p.player.vu.volumes;
     }, 100);
   </script>
   <style>
@@ -56,6 +60,7 @@
 </head>
 
 <body>
+  <div id="placeholder-preview"></div>
   <div id="vu-1" class="container">
     <div class="vu-scale"></div>
     <div class="vu-bar-container"></div>

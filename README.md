@@ -22,7 +22,6 @@
       refreshRate: 60, // how often the canvas is redrawn
     });
     vu.start();
-
     // volumes can be retrieved with an HTTP request
     setInterval(() => {
       vu.volumes = vu.volumes.map(() => Math.random());
