@@ -2,12 +2,12 @@
 
 <head>
   <script src="./vu-meter.js"></script>
-  <script src="./jsmpeg-player.umd.min.js"></script>
+  <script src="./jsmpeg.min.js"></script>
   <link rel="stylesheet" href="./vu-meter.css">
   <script>
     const vu = new VUMeter({
       id: 'vu-1',
-      gradientStart: '#75b831',
+      gradientStart: '#75b831aa',
       gradientMiddle: '#f2921b',
       gradientEnd: '#c11e0f',
       barSpeed: 2,
@@ -18,12 +18,17 @@
     });
     vu.start();
     setTimeout(() => {
-      const p = new JSMpeg.VideoElement(
-        '#placeholder-preview',
-        'ws://192.168.7.161:8082/melted.2',
+
+      const p = new JSMpeg.Player(
+        // 'ws://192.168.7.161:8082/melted.2',
+        'ws://192.168.1.57/ws/preview_enc_lc_4',
+        {
+          canvas: document.getElementById('canvas-preview'),
+          reconnectInterval: 0.1,
+        }
       );
       setInterval(() => {
-        p.player.vu.channels.forEach((v, i) => {
+        p.vu.channels.forEach((v, i) => {
           vu.volumes[i] = v / 255;
         })
       }, 100);
@@ -31,19 +36,23 @@
   </script>
   <style>
     .container {
-      display: inline-flex;
+      display: flex;
+      position: absolute;
+      top: 10;
+      left: 400;
+      z-index: 999;
     }
 
     .vu-scale {
-      height: 160px;
+      height: 250px;
       font-size: 8px;
       margin-right: 3px;
     }
 
     .vu-bar-container {
       width: 13px;
-      height: 160px;
-      background-color: lightgray;
+      height: 250px;
+      background-color: rgba(0, 0, 0, 0.25);
       border-radius: 2px;
     }
 
@@ -70,13 +79,17 @@
 </head>
 
 <body>
-  <div id="placeholder-preview"></div>
-  <div id="vu-1" class="container">
-    <div class="vu-scale"></div>
-    <div class="vu-bar-container"></div>
-    <div class="vu-bar-container"></div>
-    <div class="vu-bar-container"></div>
-    <div class="vu-bar-container"></div>
+  <div style="position: relative;">
+    <div id="placeholder-preview">
+      <canvas id="canvas-preview" />
+    </div>
+    <div id="vu-1" class="container">
+      <!-- <div class="vu-scale"></div> -->
+      <div class="vu-bar-container"></div>
+      <div class="vu-bar-container"></div>
+      <div class="vu-bar-container"></div>
+      <div class="vu-bar-container"></div>
+    </div>
   </div>
 </body>
 
