@@ -13,25 +13,23 @@
       barSpeed: 2,
       tickerSpeed: 4,
       tickerHeight: 2,
-      tickerColor: 'black',
+      tickerColor: '#fffa',
       refreshRate: 60,
     });
     vu.start();
     setTimeout(() => {
-
       const p = new JSMpeg.Player(
-        // 'ws://192.168.7.161:8082/melted.2',
-        'ws://192.168.1.57/ws/preview_enc_lc_4',
+        'ws://192.168.7.161:8082/melted.2',
         {
           canvas: document.getElementById('canvas-preview'),
           reconnectInterval: 0.1,
+          vuCallback: (channels, pts) => {
+            channels.forEach((v, i) => {
+              vu.volumes[i] = v / 255;
+            });
+          }
         }
       );
-      setInterval(() => {
-        p.vu.channels.forEach((v, i) => {
-          vu.volumes[i] = v / 255;
-        })
-      }, 100);
     });
   </script>
   <style>
@@ -39,7 +37,7 @@
       display: flex;
       position: absolute;
       top: 10;
-      left: 400;
+      left: 300;
       z-index: 999;
     }
 
@@ -85,6 +83,10 @@
     </div>
     <div id="vu-1" class="container">
       <!-- <div class="vu-scale"></div> -->
+      <div class="vu-bar-container"></div>
+      <div class="vu-bar-container"></div>
+      <div class="vu-bar-container"></div>
+      <div class="vu-bar-container"></div>
       <div class="vu-bar-container"></div>
       <div class="vu-bar-container"></div>
       <div class="vu-bar-container"></div>
