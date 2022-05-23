@@ -24,9 +24,11 @@
           canvas: document.getElementById('canvas-preview'),
           reconnectInterval: 0.1,
           vuCallback: (channels, pts) => {
+            const volumes = [];
             channels.forEach((v, i) => {
-              vu.volumes[i] = v / 255;
+              volumes[i] = v / 255;
             });
+            vu.setVolumes(volumes);
           }
         }
       );

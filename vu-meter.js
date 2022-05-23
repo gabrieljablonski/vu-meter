@@ -81,6 +81,10 @@ class VUMeter {
       if (target < ticker) {
         ticker -= (this.tickerSpeed * 0.001);
       }
+      if (ticker < 0) {
+        ticker = 0;
+      }
+      ticker = Math.round(ticker*1000)/1000;
       const targetTicker = (1 - ticker) * canvas.height - this.tickerHeight;
       context.fillStyle = this.tickerColor;
       context.fillRect(0, targetTicker, context.canvas.width, this.tickerHeight);
@@ -152,5 +156,14 @@ class VUMeter {
     setInterval(() => {
       this._draw();
     }, 1000 / this.refreshRate);
+  }
+
+  setVolumes(volumes) {
+    if (volumes.length < this.volumes.length) {
+      this.volumes = arrayFill(this.volumes.length);
+    }
+    volumes.forEach((v, i) => {
+      this.volumes[i] = v;
+    });
   }
 }
